@@ -3,7 +3,7 @@
 
 # QAction Class
 
-QAction 类提供了可以插入到控件中的抽象用户界面动作。[更多]()...
+`QAction` 类提供了可以插入到控件中的抽象用户界面动作。[更多]()...
 
 | 属性 | 方法 |
 | ----- | -------------------------------- |
@@ -43,8 +43,8 @@ QAction 类提供了可以插入到控件中的抽象用户界面动作。[更�
 | 返回类型 | 函数名  |
 | ------: | :------ |
 | | [QAction]()(const QIcon &*icon*, const QString &*text*, QObject \**parent* = nullptr) |
-| | [QAction]()(const QString &*text*, QObject \**parent* = nullptr)
-QAction(QObject \**parent* = nullptr) |
+| | [QAction]()(const QString &*text*, QObject \**parent* = nullptr) |
+| | [QAction]()(QObject \**parent* = nullptr) |
 |virtual| [~QAction]()() |
 |QActionGroup *| [actionGroup]()() const |
 |void| [activate]()(QAction::ActionEvent *event*) |
@@ -131,11 +131,11 @@ QAction(QObject \**parent* = nullptr) |
 
 动作可以创建为独立的对象，也可以在构造菜单时创建。[QMenu]() 类包含方便创建适合用作菜单项动作的函数。
 
-QAction 类可能包含图标、菜单文本、快捷键、状态文本、“这是什么？”文字和工具提示，其中大多数可以在构造函数中设置，也可以分别使用 setIcon(), setText(), setIconText(), setShortcut(), setStatusTip(), setWhatsThis(), setToolTip() 进行设置。对于菜单项，可以使用setFont() 设置单个字体。
+QAction 类可能包含图标、菜单文本、快捷键、状态文本、“这是什么？”文字和工具提示，其中大多数可以在构造函数中设置，也可以分别使用 `setIcon()`, `setText()`, `setIconText()`, `setShortcut()`, `setStatusTip()`, `setWhatsThis()`, `setToolTip()` 进行设置。对于菜单项，可以使用setFont() 设置单个字体。
 
-使用 QWidget::addAction() 或者 QGraphicsWidget::addAction() 将动作添加到空间中。请注意，使用一个动作之前，必须先将其添加到控件中。全局快捷键也是如此（即 Qt::ApplicationShortcut 为 Qt::ShortcutContext）。
+使用 `QWidget::addAction()` 或者 `QGraphicsWidget::addAction()` 将动作添加到空间中。请注意，使用一个动作之前，必须先将其添加到控件中。全局快捷键也是如此（即 `Qt::ApplicationShortcut` 为 `Qt::ShortcutContext`）。
 
-一旦 QAction 类被创建，应将其添加到相关的菜单和工具栏，然后连接到将执行动作的槽。例如：
+一旦 `QAction` 类被创建，应将其添加到相关的菜单和工具栏，然后连接到将执行动作的槽。例如：
 
 ```cpp
 const QIcon openIcon = QIcon::fromTheme("document-open", QIcon(":/images/pen.png"));
@@ -154,7 +154,7 @@ fileToolBar->addAction(openAct);
 ## 成员类型文档
 ### enum QAction::ActionEvent
 ----
-当调用 [QAction::activate()]() 时使用此枚举类型。
+当调用 [QAction::activate()]() 时使用该枚举类型。
 
 |  常量  |   值   |  描述  |
 | :----  | :----: | :---- |
@@ -164,7 +164,7 @@ fileToolBar->addAction(openAct);
 
 ### enum QAction::MenuRole
 ----
-此枚举类型描述了如何将动作移至macOS上的应用程序菜单。
+该枚举描述了如何将动作移至macOS上的应用程序菜单。
 
 |  常量  |   值   |  描述  |
 | :----  | :----: | :---- |
@@ -175,3 +175,42 @@ fileToolBar->addAction(openAct);
 | QAction::AboutRole | 4 | 此动作应放在应用程序菜单中“关于”菜单项的位置。菜单项的文本将设置为“关于<应用程序名称>”。应用程序的名称将从应用程序捆绑包中的Info.plist文件中获取（参见[有关MacOS的Qt部署]()） |
 | QAction::PreferencesRole | 5 | 此动作应放在应用程序菜单中“首选项...”菜单项的位置 |
 | QAction::QuitRole | 6 | 此动作应放在应用程序菜单中“退出”菜单项的位置 |
+
+设置此值仅对菜单栏的快捷菜单中的项目有效，而对那些菜单的子菜单无效。例如，如果菜单栏中有“文件”菜单，并且“文件”菜单有一个子菜单，为子菜单中的动作设置 `MenuRole` 无效。它们永远不会发生动作。
+
+
+### enum QAction::Priority
+----
+该枚举定义了用户界面中动作优先级。
+
+|  常量  |   值   |  描述  |
+| :----  | :----: | :---- |
+| QAction::LowPriority | 0 | 此动作不应该在用户界面中被置为优先 |
+| QAction::NormalPriority | 128 | |
+| QAction::HighPriority | 256 | 此动作应该在用户界面中被置为优先 |
+
+该枚举是在 `Qt 4.6` 中被引入或修改的。
+
+另请参见[priority]()。
+
+
+## 属性文档
+### autoRepeat : bool
+----
+该属性保存动作能否自动重复。
+
+如果为 `true`，则在系统上启用了键盘自动重复功能的情况下，按住键盘组合快捷键时，该动作将自动重复。默认值是 `true`。
+
+该属性是在 `Qt 4.6` 中被引入的。
+
+**存取函数:**
+|       |       |
+| ----: | :---- |
+| bool  | autoRepeat() const |
+| void  | setAutoRepeat(*bool*) |
+
+**通知信号：**
+|       |       |
+| ----: | :---- |
+| void  | [changed]()() |
+
