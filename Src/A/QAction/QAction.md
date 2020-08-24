@@ -152,3 +152,26 @@ fileToolBar->addAction(openAct);
 另请参见 [QMenu](), [QToolBar]() 和 [应用程序实例]()。
 
 ## 成员类型文档
+### enum QAction::ActionEvent
+----
+当调用 [QAction::activate()]() 时使用此枚举类型。
+
+|  常量  |   值   |  描述  |
+| :----  | :----: | :---- |
+| QAction::Trigger | 0 | 这将导致发出 [QAction::triggered()]() 信号 |
+| QAction::Hover   | 1 | 这将导致发出 [QAction::hovered()]() 信号 |
+
+
+### enum QAction::MenuRole
+----
+此枚举类型描述了如何将动作移至macOS上的应用程序菜单。
+
+|  常量  |   值   |  描述  |
+| :----  | :----: | :---- |
+| QAction::NoRole | 0 | 此动作不应放在应用程序菜单中 |
+| QAction::TextHeuristicRole | 1 | 正如 [QMenuBar]() 文档所述，应根据动作的文本将此动作放入应用程序菜单中 |
+| QAction::ApplicationSpecificRole | 2 | 此动作应以特定于应用程序的角色放在应用程序菜单中 |
+| QAction::AboutQtRole | 3 | 此动作处理“关于Qt”菜单项。 |
+| QAction::AboutRole | 4 | 此动作应放在应用程序菜单中“关于”菜单项的位置。菜单项的文本将设置为“关于<应用程序名称>”。应用程序的名称将从应用程序捆绑包中的Info.plist文件中获取（参见[有关MacOS的Qt部署]()） |
+| QAction::PreferencesRole | 5 | 此动作应放在应用程序菜单中“首选项...”菜单项的位置 |
+| QAction::QuitRole | 6 | 此动作应放在应用程序菜单中“退出”菜单项的位置 |
